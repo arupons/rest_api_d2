@@ -1,0 +1,8 @@
+#AuthUserFile /home/.htpasswd
+#AuthName "Password Protected Area"
+#AuthType Basic
+#Require valid-user
+
+#Options +FollowSymLinks
+#RewriteEngine On
+#RewriteRule ^(.*)$ index.php [NC,L]
