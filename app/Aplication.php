@@ -1,9 +1,10 @@
 <?php
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/assets/Doctrine.php');
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/assets/UUID.php');
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/config/Conection.php');
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/assets/jwt/JWT.php');
-    require_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/assets/RestService/Api.php');
+    include_once($_SERVER['DOCUMENT_ROOT'].'/dirs.php');
+    include_once(ROOT_PATH.'app/assets/Doctrine.php');
+    include_once(ROOT_PATH.'app/assets/UUID.php');
+    include_once(ROOT_PATH.'app/config/Conection.php');
+    include_once(ROOT_PATH.'app/assets/jwt/JWT.php');
+    require_once(ROOT_PATH.'app/assets/RestService/Api.php');
 
 	/**
 	 * Application controllers
@@ -19,9 +20,9 @@
         public function __construct($fld){
             parent::__construct();
 
-            $this->key = "t3cn0l0g1@3cu#911date";
+            $this->key = "SecretKey";
             $controller = get_class($this) . 'Controller';
-            require_once($_SERVER['DOCUMENT_ROOT'] . '/Services/app/controllers' . $fld . $controller . '.php');
+            require_once(CONTROLLER_PATH  . $fld . $controller . '.php');
             $this->Controller = new $controller;
         }
 

@@ -1,9 +1,9 @@
 <?php
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/assets/Doctrine.php');
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/assets/UUID.php');
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/config/Conection.php');
-    include_once($_SERVER['DOCUMENT_ROOT'].'/Services/app/assets/jwt/JWT.php');
-//  	require_once("./Aplication.php");
+    include_once($_SERVER['DOCUMENT_ROOT'].'/dirs.php');
+    include_once(ROOT_PATH.'app/assets/Doctrine.php');
+    include_once(ROOT_PATH.'app/assets/UUID.php');
+    include_once(ROOT_PATH.'app/config/Conection.php');
+    include_once(ROOT_PATH.'app/assets/jwt/JWT.php');
 
 	/**
 	 * Application controllers
@@ -17,8 +17,6 @@
 	class AppController
 	{
         public function __construct($db = null, $table = null, $dbm = 0){
-//            parent::__construct();
-//            echo $db . ' ' . $table;
             $this->key = "secure key";
             if(!is_null($db) && !is_null($table)) {
                 try {
@@ -30,19 +28,17 @@
                             $conexion = new Conection($db, 'pgsql', 'host','user', 'password');
                             break;
                     }
-//                    $conexion->SetBaseDatos($db);
 
                     spl_autoload_register(array('Doctrine', 'autoload'));
                     $this->conn = Doctrine_Manager::connection($conexion->getStringConnDoctrine(), 'doctrine');
                     $this->conn->connect();
 
                     $this->conn->setCharset('utf8');
-                    Doctrine_Core::loadModels(array($_SERVER['DOCUMENT_ROOT'] . '/Services/app/db/' . $db . '/generated', $_SERVER['DOCUMENT_ROOT'] . '/Services/app/db/' . $db . '/models'));
+                    Doctrine_Core::loadModels(array(ROOT_PATH . 'app/db/' . $db . '/generated', ROOT_PATH . 'app/db/' . $db . '/models'));
                     $this->table=$table;
                     $this->Table = Doctrine_Core::getTable($table);
                     $this->sql = $this->getSqlData($table);
                     $this->id = $this->Table->getIdentifier();
-//                    echo $this->Table->getTypeOf($this->id);
                 } catch (Exception $e) {
                     exit($e->getMessage());
                 }
